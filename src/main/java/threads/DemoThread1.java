@@ -1,13 +1,11 @@
 package threads;
 
-import static java.lang.Thread.currentThread;
+
 import static java.lang.Thread.sleep;
-
 /**
- * Created by Administrator on 2016/7/13.
+ * Created by Administrator on 2016/7/18.
  */
-public class DemoThread implements Runnable {
-
+public class DemoThread1 implements Runnable{
     //线程公有对象
     public String publicObject;
     //线程公有数据
@@ -17,7 +15,7 @@ public class DemoThread implements Runnable {
     //线程私有对象
     private char privateData;
 
-    public DemoThread(){
+    public DemoThread1(){
         System.out.println("Thread " + Thread.currentThread().getName() + " is instant.");
     }
 
@@ -70,5 +68,4 @@ public class DemoThread implements Runnable {
         }
         System.out.println("Thread " + Thread.currentThread().getName() + " over.");
     }
-
 }
