@@ -1,5 +1,6 @@
 package JDK8Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -8,5 +9,7 @@ import java.util.Arrays;
 public class Jdk8Test {
     public static void main(String[] args) {
         Arrays.asList("a","b","c").forEach(e -> System.out.println(e));
+
+
     }
 }
