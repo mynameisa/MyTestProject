@@ -1,7 +1,5 @@
 package DesignModel.Observer;
 
-import javax.swing.text.View;
-
 /**
  * Created by Administrator on 2016/8/16.
  */
