@@ -1,4 +1,4 @@
-package Singleton;
+package DesignModel.Singleton;
 
 /**
  * Created by jiatieying on 16/9/27.
