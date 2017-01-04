@@ -1,20 +1,20 @@
 package jdbcTest;
 
+import java.security.MessageDigest;
 import java.sql.*;
 
 /**
  * Created by Administrator on 2016/7/29.
  */
 public class jdbcTest {
-    static final String JDBC_URL = "";
-    static final String DB_URL = "";
-
-    static final String USER = "";
-    static final String PASS = "";
+    static final String DB_URL = "jdbc:mysql://59.151.42.245:28066/wifiin_online?useUnicode=true&characterEncoding=utf-8";
+    static final String USER = "wifiin";
+    static final String PASS = "OtbqAzzsV20710";
 
     public static void main(String[] args) {
         Connection conn = null;
         Statement stmt = null;
+        Statement stmt2 = null;
         try{
             //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,38 +26,23 @@ public class jdbcTest {
             //STEP 4: Execute a query
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
+            stmt2 = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM action WHERE type='menu' OR  type='root'";
-            ResultSet rs = stmt.executeQuery(sql);
-            String resultJson = "[";
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-                //Retrieve by column name
-                int id  = rs.getInt("id");
-                resultJson += "{'id':" + "'" + id + "',";
-
-                int pid = rs.getInt("parentid");
-
-                String type = rs.getString("type");
-                if("menu".equals(type)){
-                    String url = rs.getString("action_name");
-                    resultJson += "'url':" + "'" + url + "',";
+            int begin = 0;
+            for (int i = 0;i<80;i++) {
+                sql = "SELECT id,portal_html FROM portal_event LIMIT " + begin + ",1000";
+                ResultSet rs = stmt.executeQuery(sql);
+                //STEP 5: Extract data from result set
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    stmt2.executeUpdate(addMd5SQL(rs.getString("portal_html"), id));
+                    System.out.println(id);
                 }
-
-                String name = rs.getString("menu");
-                resultJson += "'name':" + "'" + name + "'},";
-
-                String first = rs.getString("first");
-                String last = rs.getString("last");
-
-                //Display values
-                System.out.print("ID: " + id);
-//                System.out.print(", Age: " + age);
-                System.out.print(", First: " + first);
-                System.out.println(", Last: " + last);
+                //STEP 6: Clean-up environment
+                rs.close();
+                begin+=1000;
             }
-            //STEP 6: Clean-up environment
-            rs.close();
+            stmt2.close();
             stmt.close();
             conn.close();
         }catch(SQLException se){
@@ -80,6 +65,38 @@ public class jdbcTest {
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("Goodbye!");
+        System.out.println("End");
+    }
+
+    public static String addMd5SQL(String html,int id){
+        String md5 = getMd5(html);
+        System.out.println(md5);
+        return "UPDATE portal_event " + "SET md5_value='" + md5 + "' WHERE id=" + id;
+    }
+
+    private static MessageDigest md5 = null;
+    static {
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * 用于获取一个String的md5值
+     * @return
+     */
+    public static String getMd5(String str) {
+        byte[] bs = md5.digest(str.getBytes());
+        StringBuilder sb = new StringBuilder(40);
+        for(byte x:bs) {
+            if((x & 0xff)>>4 == 0) {
+                sb.append("0").append(Integer.toHexString(x & 0xff));
+            } else {
+                sb.append(Integer.toHexString(x & 0xff));
+            }
+        }
+        return sb.toString();
     }
 }
