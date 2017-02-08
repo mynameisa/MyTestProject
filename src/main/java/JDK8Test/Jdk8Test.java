@@ -2,6 +2,7 @@ package JDK8Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/6/21.

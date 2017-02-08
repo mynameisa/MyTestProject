@@ -2,13 +2,41 @@ package util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by Administrator on 2016/6/24.
  */
 public class TempTest {
+    public final static int LIMIT = 2000;
     public static void  main(String[] args){
-        hello();
+//        Map<String,Object> testMap = new HashMap<>();
+//        testMap.put("3","third");
+//        testMap.put("itself",testMap);
+//        testMap.put("1","first");
+//        testMap.put("2","second");
+//        System.out.println(testMap);
+//        Map<String,Object> m = (Map)testMap.get("itself");
+//        m.put("4","4th");
+//        System.out.println(m.get("itself"));
+//        System.out.println(testMap);
+
+        int n =1000;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("input num:");
+        while(sc.hasNext()){
+            int m=sc.nextInt();
+            System.out.println("input is:"+m);
+            if(m>0&&(m+n)<=LIMIT){
+                System.out.println("ok,num is:"+(m+n));
+            }else{
+                System.out.println("error");
+            }
+        }
+
+//        int m = 2147483647;
+//        System.out.println(m+1);
+
     }
 
     public static void hello() {
