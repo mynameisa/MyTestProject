@@ -21,21 +21,27 @@ public class TempTest {
 //        System.out.println(m.get("itself"));
 //        System.out.println(testMap);
 
-        int n =1000;
-        Scanner sc=new Scanner(System.in);
-        System.out.println("input num:");
-        while(sc.hasNext()){
-            int m=sc.nextInt();
-            System.out.println("input is:"+m);
-            if(m>0&&(m+n)<=LIMIT){
-                System.out.println("ok,num is:"+(m+n));
-            }else{
-                System.out.println("error");
-            }
-        }
+//        int n =1000;
+//        Scanner sc=new Scanner(System.in);
+//        System.out.println("input num:");
+//        while(sc.hasNext()){
+//            int m=sc.nextInt();
+//            System.out.println("input is:"+m);
+//            if(m>0&&(m+n)<=LIMIT){
+//                System.out.println("ok,num is:"+(m+n));
+//            }else{
+//                System.out.println("error");
+//            }
+//        }
 
 //        int m = 2147483647;
 //        System.out.println(m+1);
+
+        String s1="ab"+"c";
+        String s2="abc";
+        System.out.println(s1==s2);
+        System.out.println(s1.equals(s2));
+        System.out.println((s1==s2) + ":" + s1.equals(s2));
 
     }
 
